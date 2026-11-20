@@ -1,34 +1,65 @@
+<div align="center">
+
+<img src="assets/banner.svg" alt="ATS Resume Tailor: tailored CVs from your real experience, no fabrication" width="100%">
+
 # ATS Resume Tailor
 
-**An Agent Skill that generates ATS-friendly CVs and resumes tailored to each job posting, from a living career profile, with every claim verified. No fabrication, no keyword tricks.**
+**Generate ATS-friendly CVs and resumes tailored to each job posting, from your real career profile. Every claim verified. No fabrication, no keyword tricks.**
 
-Works with Claude Code, Codex, Cursor and any agent that loads `SKILL.md` skills.
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-3DDC97)](SKILL.md)
+[![Python 3](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white)](scripts)
+[![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](scripts)
+[![Local only](https://img.shields.io/badge/privacy-local%20only-success)](#privacy)
+[![Claims verified](https://img.shields.io/badge/claims-verified-3DDC97)](#how-it-works)
 
-## Why
+[Install](#install) · [How it works](#how-it-works) · [Quick start](#quick-start) · [Scripts](#scripts) · [FAQ](#faq)
 
-Generic CVs miss keywords. Generic AI CVs invent things. This skill keeps one private **master profile** of everything you have really done, then for each job it selects, rewrites and scores only what is true, and refuses to add what is not.
+</div>
+
+---
+
+Generic CVs miss keywords. Generic AI CVs invent things. **ATS Resume Tailor** is an [Agent Skill](https://docs.claude.com) for Claude Code, Codex and Cursor that keeps one private **master career profile** of everything you have really done. For each job it selects, rewrites and scores only what is true, and refuses to add what is not.
 
 ## Features
 
-- **Living career profile.** Grows from old CVs (PDF/DOCX), GitHub repos, LinkedIn export, performance reviews.
-- **Job analysis.** Extracts required vs preferred keywords from a posting.
-- **Transparent match score.** A simple, documented rubric. Shows matched terms and honest gaps.
-- **Claim verification.** Every bullet points to an accomplishment id. Numbers, skills, titles, companies and dates are checked against the profile (exit 1 on any mismatch).
+- **Living career profile.** Grows from old CVs (PDF/DOCX), GitHub repos, LinkedIn export and performance reviews.
+- **Job analysis.** Extracts required vs preferred keywords from a job description.
+- **Transparent match score.** A documented rubric with matched terms and honest gaps, before and after tailoring.
+- **Claim verification.** Every bullet points to an accomplishment id. Numbers, skills, titles, companies and dates are checked against your profile. Any mismatch fails the build.
 - **ATS-safe output.** Single column, standard headings, real text. HTML, Markdown and PDF.
-- **Format checker.** Flags missing contact info, non-standard headings, multi-column layouts, decorative glyphs, page count.
-- **Region presets.** US/UK, EU, DACH, LatAm conventions for photo and personal data.
+- **Format checker.** Flags missing contact info, non-standard headings, multi-column layouts, decorative glyphs and page count.
+- **Region presets.** US/UK, EU, DACH and LatAm conventions for photo and personal data.
 - **Application log.** Which evidence went into which application.
-- **Private by default.** `profile/`, `jobs/` and `out/` are git-ignored. Nothing leaves your machine except the GitHub username you choose to ingest.
+
+## How it works
+
+```mermaid
+flowchart LR
+    S[Old CVs, GitHub,<br/>LinkedIn, reviews] --> P[(profile.json<br/>master record)]
+    J[Job posting] --> K[extract_keywords.py]
+    K --> M[score_match.py<br/>score + gaps]
+    P --> M
+    M --> D[Agent drafts cv.json<br/>XYZ bullets, true facts only]
+    D --> V{validate_claims.py}
+    V -->|mismatch| D
+    V -->|all verified| R[render_cv.py<br/>HTML / MD / PDF]
+    R --> C[check_ats_format.py]
+```
 
 ## Install
 
-Claude Code:
+Claude Code (personal skill):
 
 ```bash
 git clone https://github.com/ludodelot/ats-resume-tailor ~/.claude/skills/ats-resume-tailor
 ```
 
+Other agents: copy the folder to your agent's skills location, or reference `SKILL.md` from `AGENTS.md`.
+
 ## Quick start
+
+With your agent: *"Use ats-resume-tailor. Build my profile from `~/old_cv.pdf` and my GitHub `<user>`, then tailor a CV for this job: `<paste the posting>`."*
 
 Try the scripts on the bundled fake data:
 
@@ -40,35 +71,63 @@ python3 scripts/render_cv.py examples/cv.example.json --out /tmp/cv --region us
 python3 scripts/check_ats_format.py /tmp/cv/cv.pdf
 ```
 
-With your agent: *"Use ats-resume-tailor. Build my profile from `~/cv_old.pdf` and my GitHub `<user>`, then tailor a CV for this job: `<paste posting>`."*
+## The honesty guarantee
 
-## Scripts (Python 3, standard library; optional tools noted)
+| The skill will | The skill will never |
+|---|---|
+| Reword true experience with the job's own terminology | Invent skills, tools, numbers, titles or employers |
+| Reorder and select your most relevant evidence | Hide white text or stuff keywords |
+| Report gaps and ask if you really have the skill | Add a requirement just because the posting lists it |
+| Trace every bullet to a profile source | Send your profile anywhere |
+
+## Scripts
+
+Python 3, standard library. Optional tools in the last column.
 
 | Script | Purpose | Optional |
 |---|---|---|
-| `ingest_sources.py` | PDF, DOCX, GitHub, LinkedIn to readable sources | `pdftotext` (poppler) or `pypdf`, `python-docx` |
-| `extract_keywords.py` | Required / preferred keywords from a job posting | |
-| `score_match.py` | Transparent match score and gaps | |
-| `validate_claims.py` | Verify every bullet against the profile | |
-| `render_cv.py` | HTML, Markdown, PDF | `weasyprint` or Chrome for PDF |
-| `check_ats_format.py` | Heuristic parseability check | `pdftotext` or `pypdf` |
+| [`ingest_sources.py`](scripts/ingest_sources.py) | PDF, DOCX, GitHub, LinkedIn to readable sources | `pdftotext` or `pypdf`, `python-docx` |
+| [`extract_keywords.py`](scripts/extract_keywords.py) | Required and preferred keywords from a posting | |
+| [`score_match.py`](scripts/score_match.py) | Transparent match score and gaps | |
+| [`validate_claims.py`](scripts/validate_claims.py) | Verify every bullet against the profile | |
+| [`render_cv.py`](scripts/render_cv.py) | HTML, Markdown, PDF | `weasyprint` or Chrome |
+| [`check_ats_format.py`](scripts/check_ats_format.py) | Heuristic ATS parseability check | `pdftotext` or `pypdf` |
 
-## Honesty rules
+## Repository layout
 
-The skill never invents skills, numbers, titles or employers, never hides text, and never stuffs keywords. When a job asks for something you lack, it tells you and asks whether it is true.
+```
+SKILL.md        agent instructions (the skill)
+scripts/        deterministic steps
+references/     ATS facts vs myths, schemas, scoring, bullet writing, region rules
+examples/       fake profile, job posting and CV
+evals/          test cases
+assets/         banner and social preview
+```
 
-## Limits
+## Privacy
 
-No tool can reproduce a real employer's ATS scoring. The match score is a proxy. See `references/ats-facts.md` for what is evidence and what is myth.
+`profile/`, `jobs/` and `out/` are git-ignored. Nothing leaves your machine, except the GitHub username you choose to ingest, which is sent to the public GitHub API. Job postings and PDFs are treated as data, never as instructions.
 
-## Related ideas
+## FAQ
 
-ATS resume optimizer, tailored CV generator, AI resume builder, job description keyword extraction, JSON Resume, Claude Code skill, resume parser check.
+**Does it guarantee I pass an ATS?** No tool can. Real ATS scoring is proprietary. The match score is a proxy, and [`references/ats-facts.md`](references/ats-facts.md) separates evidence from myth.
+
+**PDF or DOCX?** Both parse fine when they contain real text. Avoid scanned images, columns, tables, text boxes and header/footer contact info.
+
+**Can it write cover letters?** No. This skill is focused on CVs.
+
+**What if the job needs a skill I don't have?** It reports the gap and asks whether you actually have it. It does not add it on its own.
+
+**Which regions are supported?** Presets for US/UK, EU, DACH and LatAm, documented in [`references/region-rules.md`](references/region-rules.md). Confirm local norms for your target country.
+
+## Related topics
+
+ATS resume optimizer, tailored CV generator, AI resume builder, applicant tracking system, job description keyword extraction, resume keyword matching, JSON Resume, resume parser check, Claude Code skills, career profile.
 
 ## Contributing
 
-Issues and PRs welcome: new region presets, ESCO/O*NET skill mapping, DOCX renderer, more parser tests.
+Issues and pull requests are welcome: new region presets, ESCO/O*NET skill mapping, a DOCX renderer, more parser tests.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+[MIT](LICENSE) © Ludovic Delot
