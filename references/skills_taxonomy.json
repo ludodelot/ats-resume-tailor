@@ -1,0 +1,334 @@
+{
+ "_note": "Canonical skill -> aliases. Extend freely. Matching is case-insensitive, word-boundary.",
+ "skills": [
+  {
+   "name": "javascript",
+   "aliases": [
+    "js",
+    "ecmascript",
+    "es6"
+   ]
+  },
+  {
+   "name": "typescript",
+   "aliases": [
+    "ts"
+   ]
+  },
+  {
+   "name": "python",
+   "aliases": [
+    "py",
+    "python3"
+   ]
+  },
+  {
+   "name": "java",
+   "aliases": []
+  },
+  {
+   "name": "c#",
+   "aliases": [
+    "csharp",
+    ".net",
+    "dotnet"
+   ]
+  },
+  {
+   "name": "go",
+   "aliases": [
+    "golang"
+   ]
+  },
+  {
+   "name": "rust",
+   "aliases": []
+  },
+  {
+   "name": "sql",
+   "aliases": [
+    "postgresql",
+    "postgres",
+    "mysql",
+    "t-sql",
+    "tsql",
+    "sql server"
+   ]
+  },
+  {
+   "name": "react",
+   "aliases": [
+    "react.js",
+    "reactjs"
+   ]
+  },
+  {
+   "name": "node.js",
+   "aliases": [
+    "node",
+    "nodejs"
+   ]
+  },
+  {
+   "name": "aws",
+   "aliases": [
+    "amazon web services"
+   ]
+  },
+  {
+   "name": "azure",
+   "aliases": [
+    "microsoft azure"
+   ]
+  },
+  {
+   "name": "google cloud",
+   "aliases": [
+    "gcp",
+    "google cloud platform"
+   ]
+  },
+  {
+   "name": "kubernetes",
+   "aliases": [
+    "k8s"
+   ]
+  },
+  {
+   "name": "docker",
+   "aliases": [
+    "containers",
+    "containerization"
+   ]
+  },
+  {
+   "name": "machine learning",
+   "aliases": [
+    "ml"
+   ]
+  },
+  {
+   "name": "artificial intelligence",
+   "aliases": [
+    "ai"
+   ]
+  },
+  {
+   "name": "data analysis",
+   "aliases": [
+    "data analytics",
+    "analytics"
+   ]
+  },
+  {
+   "name": "power bi",
+   "aliases": [
+    "powerbi",
+    "power-bi"
+   ]
+  },
+  {
+   "name": "tableau",
+   "aliases": []
+  },
+  {
+   "name": "excel",
+   "aliases": [
+    "microsoft excel",
+    "spreadsheets"
+   ]
+  },
+  {
+   "name": "dbt",
+   "aliases": []
+  },
+  {
+   "name": "snowflake",
+   "aliases": []
+  },
+  {
+   "name": "etl",
+   "aliases": [
+    "data pipelines",
+    "elt"
+   ]
+  },
+  {
+   "name": "git",
+   "aliases": [
+    "github",
+    "gitlab",
+    "version control"
+   ]
+  },
+  {
+   "name": "ci/cd",
+   "aliases": [
+    "continuous integration",
+    "continuous delivery",
+    "github actions",
+    "jenkins"
+   ]
+  },
+  {
+   "name": "rest api",
+   "aliases": [
+    "rest",
+    "restful",
+    "apis",
+    "api"
+   ]
+  },
+  {
+   "name": "project management",
+   "aliases": [
+    "pmo",
+    "program management"
+   ]
+  },
+  {
+   "name": "agile",
+   "aliases": [
+    "scrum",
+    "kanban"
+   ]
+  },
+  {
+   "name": "stakeholder management",
+   "aliases": [
+    "stakeholder communication",
+    "stakeholder engagement"
+   ]
+  },
+  {
+   "name": "product management",
+   "aliases": [
+    "product owner"
+   ]
+  },
+  {
+   "name": "seo",
+   "aliases": [
+    "search engine optimization"
+   ]
+  },
+  {
+   "name": "google analytics",
+   "aliases": [
+    "ga4",
+    "ga"
+   ]
+  },
+  {
+   "name": "content marketing",
+   "aliases": [
+    "content strategy"
+   ]
+  },
+  {
+   "name": "social media",
+   "aliases": [
+    "social media marketing",
+    "smm"
+   ]
+  },
+  {
+   "name": "copywriting",
+   "aliases": []
+  },
+  {
+   "name": "negotiation",
+   "aliases": [
+    "contract negotiation"
+   ]
+  },
+  {
+   "name": "financial modeling",
+   "aliases": [
+    "financial modelling",
+    "fp&a"
+   ]
+  },
+  {
+   "name": "budgeting",
+   "aliases": [
+    "budget management",
+    "forecasting"
+   ]
+  },
+  {
+   "name": "supply chain",
+   "aliases": [
+    "logistics",
+    "procurement"
+   ]
+  },
+  {
+   "name": "adobe photoshop",
+   "aliases": [
+    "photoshop"
+   ]
+  },
+  {
+   "name": "adobe premiere pro",
+   "aliases": [
+    "premiere pro",
+    "premiere"
+   ]
+  },
+  {
+   "name": "video editing",
+   "aliases": []
+  },
+  {
+   "name": "photography",
+   "aliases": []
+  },
+  {
+   "name": "figma",
+   "aliases": []
+  },
+  {
+   "name": "ux design",
+   "aliases": [
+    "user experience",
+    "ui/ux",
+    "ui ux"
+   ]
+  },
+  {
+   "name": "customer success",
+   "aliases": [
+    "account management",
+    "client management"
+   ]
+  },
+  {
+   "name": "salesforce",
+   "aliases": [
+    "sfdc"
+   ]
+  },
+  {
+   "name": "crm",
+   "aliases": [
+    "hubspot"
+   ]
+  },
+  {
+   "name": "leadership",
+   "aliases": [
+    "people management",
+    "team leadership",
+    "team lead"
+   ]
+  },
+  {
+   "name": "communication",
+   "aliases": [
+    "communications",
+    "presentation skills"
+   ]
+  }
+ ]
+}

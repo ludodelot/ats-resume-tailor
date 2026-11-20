@@ -10,6 +10,7 @@
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-3DDC97)](SKILL.md)
 [![Python 3](https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white)](scripts)
 [![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](scripts)
+[![CI](https://github.com/ludodelot/ats-resume-tailor/actions/workflows/ci.yml/badge.svg)](https://github.com/ludodelot/ats-resume-tailor/actions)
 [![Local only](https://img.shields.io/badge/privacy-local%20only-success)](#privacy)
 [![Claims verified](https://img.shields.io/badge/claims-verified-3DDC97)](#how-it-works)
 
@@ -30,22 +31,18 @@ Generic CVs miss keywords. Generic AI CVs invent things. **ATS Resume Tailor** i
 - **ATS-safe output.** Single column, standard headings, real text. HTML, Markdown and PDF.
 - **Format checker.** Flags missing contact info, non-standard headings, multi-column layouts, decorative glyphs and page count.
 - **Region presets.** US/UK, EU, DACH and LatAm conventions for photo and personal data.
+- **Word and JSON Resume export.** A dependency-free `.docx` writer and a JSON Resume converter.
+- **Skills taxonomy.** Aliases (JS = JavaScript, K8s = Kubernetes, PostgreSQL under SQL) so synonyms count as matches. Extend `references/skills_taxonomy.json`.
+- **Profile merge.** New CVs or repos add evidence without duplicating it, and conflicts are flagged, never overwritten.
 - **Application log.** Which evidence went into which application.
 
 ## How it works
 
-```mermaid
-flowchart LR
-    S[Old CVs, GitHub,<br/>LinkedIn, reviews] --> P[(profile.json<br/>master record)]
-    J[Job posting] --> K[extract_keywords.py]
-    K --> M[score_match.py<br/>score + gaps]
-    P --> M
-    M --> D[Agent drafts cv.json<br/>XYZ bullets, true facts only]
-    D --> V{validate_claims.py}
-    V -->|mismatch| D
-    V -->|all verified| R[render_cv.py<br/>HTML / MD / PDF]
-    R --> C[check_ats_format.py]
-```
+<img src="assets/pipeline.svg" alt="Sources feed profile.json. A job posting is scored against it. The agent drafts cv.json, validate_claims.py rejects mismatches and sends the draft back, verified drafts are rendered to HTML, Markdown, PDF or DOCX and format-checked." width="100%">
+
+The gate is the point. Each bullet cites an accomplishment id, and the validator compares numbers, skills, titles, companies and dates with your profile:
+
+<img src="assets/evidence-trace.svg" alt="A bullet citing acc-acme-1 passes because 35% and 12 exist in the evidence. A bullet claiming a team of 20 has no source and is blocked with exit code 1." width="100%">
 
 ## Install
 
@@ -91,6 +88,10 @@ Python 3, standard library. Optional tools in the last column.
 | [`score_match.py`](scripts/score_match.py) | Transparent match score and gaps | |
 | [`validate_claims.py`](scripts/validate_claims.py) | Verify every bullet against the profile | |
 | [`render_cv.py`](scripts/render_cv.py) | HTML, Markdown, PDF | `weasyprint` or Chrome |
+| [`export_docx.py`](scripts/export_docx.py) | ATS-safe Word file, no dependencies | |
+| [`export_jsonresume.py`](scripts/export_jsonresume.py) | Convert to the JSON Resume schema | |
+| [`merge_profile.py`](scripts/merge_profile.py) | Merge new evidence without duplicates, flag conflicts | |
+| [`log_application.py`](scripts/log_application.py) | Log each application and the evidence it used | |
 | [`check_ats_format.py`](scripts/check_ats_format.py) | Heuristic ATS parseability check | `pdftotext` or `pypdf` |
 
 ## Repository layout
@@ -101,6 +102,7 @@ scripts/        deterministic steps
 references/     ATS facts vs myths, schemas, scoring, bullet writing, region rules
 examples/       fake profile, job posting and CV
 evals/          test cases
+tests/          unit tests (stdlib unittest)
 assets/         banner and social preview
 ```
 
@@ -112,7 +114,7 @@ assets/         banner and social preview
 
 **Does it guarantee I pass an ATS?** No tool can. Real ATS scoring is proprietary. The match score is a proxy, and [`references/ats-facts.md`](references/ats-facts.md) separates evidence from myth.
 
-**PDF or DOCX?** Both parse fine when they contain real text. Avoid scanned images, columns, tables, text boxes and header/footer contact info.
+**PDF or DOCX?** Both parse fine when they contain real text, and the skill exports both. Avoid scanned images, columns, tables, text boxes and header/footer contact info.
 
 **Can it write cover letters?** No. This skill is focused on CVs.
 

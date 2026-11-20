@@ -8,8 +8,17 @@ Standard library only.
 import argparse, json, re
 from pathlib import Path
 
-SYN = {"js": "javascript", "ts": "typescript", "k8s": "kubernetes", "ml": "machine learning",
-       "ai": "artificial intelligence", "py": "python", "postgres": "postgresql", "gcp": "google cloud"}
+def _load_syn():
+    syn = {}
+    tax = Path(__file__).resolve().parent.parent / "references" / "skills_taxonomy.json"
+    if tax.exists():
+        for sk in json.loads(tax.read_text(encoding="utf-8"))["skills"]:
+            for al in sk["aliases"]:
+                syn[al.lower()] = sk["name"].lower()
+    return syn
+
+
+SYN = _load_syn()
 
 
 def canon(s):

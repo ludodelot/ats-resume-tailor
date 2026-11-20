@@ -8,7 +8,7 @@ description: >
   wants a CV, resume, ATS score or tailored bullets. Not for cover letters or interview prep.
 license: MIT
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
   author: ludodelot
   keywords: ats, resume, cv, job-application, keyword-match, career, claude-code, agent-skill
 ---
@@ -35,8 +35,9 @@ Look for `profile/profile.json`. If missing, build it with the user:
 - Ingest: `python3 scripts/ingest_sources.py pdf <file.pdf> --out profile/sources` and
   `python3 scripts/ingest_sources.py github <username> --out profile/sources`.
 - Read the extracted text and draft `profile/profile.json` following `references/profile-schema.md`.
-  Give every experience and accomplishment a stable `id`. Merge duplicates across sources; when sources conflict
-  (dates, metrics), ask the user.
+  Give every experience and accomplishment a stable `id`. Add new evidence to an existing profile with
+  `python3 scripts/merge_profile.py profile/profile.json new.json` (dry run, dedupes, reports conflicts; `--apply` writes).
+  When sources conflict (dates, metrics, titles), ask the user, never overwrite.
 - Interview for gaps: "What was the measurable result of this?" "What tools did you actually use?"
 
 ### 2. Understand the job
@@ -64,13 +65,15 @@ Fix every error. Numbers, skills, titles, companies and dates must match the pro
 ### 6. Render
 `python3 scripts/render_cv.py out/<dir>/cv.json --out out/<dir> --region us`
 Produces `cv.html`, `cv.md` and, when a PDF engine is available, `cv.pdf`. Single column, standard headings, real text.
+For Word: `python3 scripts/export_docx.py out/<dir>/cv.json --out out/<dir>/cv.docx` (no dependencies, ATS-safe).
+For other tools: `python3 scripts/export_jsonresume.py out/<dir>/cv.json --out resume.json` (JSON Resume schema).
 
 ### 7. ATS format check
 `python3 scripts/check_ats_format.py out/<dir>/cv.pdf` (or `cv.html`). Fix warnings (columns, missing sections, contact info).
 Re-run the score against the final CV: `score_match.py ... --cv out/<dir>/cv.json`.
 
 ### 8. Log
-Append to `out/applications.csv`: date, company, role, score, file, accomplishment ids used.
+`python3 scripts/log_application.py --company X --role Y --cv out/<dir>/cv.json --score 82` appends to `out/applications.csv` (date, company, role, score, evidence ids used).
 Update the profile with anything new the user told you.
 
 ## Output summary to give the user
@@ -79,6 +82,7 @@ Score before and after, matched keywords, honest gaps, files produced, and anyth
 
 ## References
 
+- `references/skills_taxonomy.json`: canonical skills and aliases used by the scorer (extend it).
 - `references/ats-facts.md`: what ATS really do, myths vs evidence.
 - `references/profile-schema.md`: `profile.json` and `cv.json` schemas.
 - `references/scoring.md`: transparent match rubric.

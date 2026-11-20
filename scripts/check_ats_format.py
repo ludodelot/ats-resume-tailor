@@ -28,7 +28,10 @@ def extract(path):
             sys.exit("Need `pdftotext` (brew install poppler) or `pip install pypdf` to read PDFs.")
     t = p.read_text(encoding="utf-8", errors="replace")
     if p.suffix in (".html", ".htm"):
-        t = re.sub(r"<style.*?</style>|<[^>]+>", " ", t, flags=re.S)
+        t = re.sub(r"<style.*?</style>", " ", t, flags=re.S)
+        t = re.sub(r"</(h[1-6]|p|li|div|ul|tr)>|<br\s*/?>", "\n", t, flags=re.I)
+        t = re.sub(r"<[^>]+>", " ", t)
+        t = re.sub(r"[ \t]+", " ", t)
     return t, None
 
 
