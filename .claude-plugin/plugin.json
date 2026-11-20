@@ -1,0 +1,8 @@
+{
+  "name": "ats-resume-tailor",
+  "version": "0.1.0",
+  "description": "Agent Skill: generate ATS-friendly CVs tailored to a job posting from a living career profile, with claim verification and no fabrication.",
+  "author": { "name": "Ludovic Delot", "url": "https://github.com/ludodelot" },
+  "license": "MIT",
+  "keywords": ["ats", "resume", "cv", "job-application", "agent-skill", "claude-code", "career"]
+}

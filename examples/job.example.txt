@@ -1,0 +1,16 @@
+Senior Data Analyst
+
+About the role
+We are looking for an analyst to own reporting and automation for our retail operations.
+
+Requirements:
+- 3+ years of experience as a data analyst
+- Advanced SQL and Python
+- Power BI or Tableau dashboards
+- Experience automating reporting workflows
+- Stakeholder communication
+
+Nice to have:
+- dbt
+- Snowflake
+- Machine learning

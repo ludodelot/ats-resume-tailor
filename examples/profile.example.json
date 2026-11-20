@@ -1,0 +1,18 @@
+{
+  "basics": {"name": "Alex Rivera", "label": "Data Analyst", "email": "alex@example.com", "phone": "+1 555 0100", "location": "Austin, TX", "links": [{"label": "GitHub", "url": "https://github.com/example"}]},
+  "experience": [
+    {"id": "exp-acme-2022", "title": "Data Analyst", "company": "Acme Retail", "start": "2022-03", "end": null,
+     "accomplishments": [
+       {"id": "acc-acme-1", "text": "Built Power BI dashboards for 12 stores that cut weekly reporting time by 35%", "metrics": ["35%", "12"], "skills": ["power bi", "sql"]},
+       {"id": "acc-acme-2", "text": "Automated inventory reconciliation in Python, saving 6 hours per week", "metrics": ["6 hours"], "skills": ["python"]}
+     ]},
+    {"id": "exp-beta-2020", "title": "Junior Analyst", "company": "Beta Logistics", "start": "2020-06", "end": "2022-02",
+     "accomplishments": [
+       {"id": "acc-beta-1", "text": "Wrote SQL queries on a 2M-row shipments table to find delays and reduced late deliveries by 8%", "metrics": ["2M", "8%"], "skills": ["sql"]}
+     ]}
+  ],
+  "skills": [{"name": "SQL", "aliases": ["PostgreSQL"]}, {"name": "Python"}, {"name": "Power BI"}, {"name": "Excel"}, {"name": "JavaScript", "aliases": ["JS"]}],
+  "education": [{"institution": "State University", "degree": "BSc Statistics", "start": "2016", "end": "2020"}],
+  "certifications": [],
+  "languages": [{"name": "English", "level": "Native"}, {"name": "Spanish", "level": "B2"}]
+}

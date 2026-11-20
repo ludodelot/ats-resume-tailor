@@ -1,0 +1,18 @@
+{
+  "language": "en",
+  "basics": {"name": "Alex Rivera", "label": "Senior Data Analyst", "email": "alex@example.com", "phone": "+1 555 0100", "location": "Austin, TX", "links": [{"label": "GitHub", "url": "https://github.com/example"}]},
+  "summary": "Data analyst with 4+ years building Power BI dashboards and Python automation for retail and logistics operations.",
+  "experience": [
+    {"ref": "exp-acme-2022", "title": "Data Analyst", "company": "Acme Retail", "start": "2022-03", "end": null,
+     "bullets": [
+       {"text": "Cut weekly reporting time by 35% by building Power BI dashboards for 12 stores", "source": "acc-acme-1"},
+       {"text": "Saved 6 hours per week by automating inventory reconciliation in Python", "source": "acc-acme-2"}
+     ]},
+    {"ref": "exp-beta-2020", "title": "Junior Analyst", "company": "Beta Logistics", "start": "2020-06", "end": "2022-02",
+     "bullets": [{"text": "Reduced late deliveries by 8% by analysing delays with SQL on a 2M-row shipments table", "source": "acc-beta-1"}]}
+  ],
+  "skills": ["SQL", "Python", "Power BI", "Excel"],
+  "education": [{"institution": "State University", "degree": "BSc Statistics", "start": "2016", "end": "2020"}],
+  "certifications": [],
+  "languages": [{"name": "English", "level": "Native"}]
+}

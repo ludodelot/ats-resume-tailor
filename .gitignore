@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__/
+# Private career data: never commit
+profile/
+out/
+jobs/
